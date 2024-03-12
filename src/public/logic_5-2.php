@@ -18,3 +18,5 @@ for($i = 1; $i < 6; $i++) {
     echo $i . "月と" . ($i + 1) . "月の差分: ". abs($incomesDifference). "円";
     echo "<br />";
 }
+
+// aaa
