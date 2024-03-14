@@ -2,9 +2,16 @@
 namespace App;
 use PDO;
 
-abstract class Database
+require_once 'Database.php';
+
+interface DatabaseInterface
 {
-    protected $pdo;
+    public function fetchAllDatabase();
+}
+
+class Database implements DatabaseInterface
+{
+    private $pdo;
 
     public function __construct()
     {
@@ -14,5 +21,15 @@ abstract class Database
             'password'
         );
     }
+    public function fetchAllDatabase()
+    {
+        $sql = "SELECT incomes.amount, income_sources.name
+        FROM incomes
+        JOIN income_sources 
+        ON incomes.income_source_id = income_sources.id";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute();
+        $database = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $database;
+    }
 }
-
